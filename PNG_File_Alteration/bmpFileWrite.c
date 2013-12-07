@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "bmpFileWrite.h"
 #include "bmp_header.h"
 
@@ -17,9 +18,19 @@
 FILE *bmpBottom(ds_png *sentinel) {
     FILE *newFile = NULL;
     char *fileName = NULL;
-    int i;
     unsigned int expectFileSize;
-    newFile = fopen(fileName, "w");
+    //Check for file name
+    //PLANNING ON MOVING TO checkHeaderValidity
+    if (fileName == NULL)
+    {
+        fileName = defaultFileNameWrite(); //Set fileName to system time
+        newFile = fopen(fileName, "w");
+        free(fileName);
+    }
+    else
+    {
+        newFile = fopen(fileName, "w"); //Filename was given
+    }
     return newFile;
 }
 
@@ -31,7 +42,20 @@ int checkHeaderValidity(char *header) {
     int i;
     if (header[0] != 'B' && header[1] != 'M')
     {
+        printf("Error: expected first 2 bytes to the 'B' and 'M' but got '%c' and '%c'instead\n", header[0], header[1]);
         return 0;
     }
     return 1;
+}
+
+//If no filename was given, generate systemtime and put in return string
+char *defaultFileNameWrite() {
+    time_t date;
+    char *buf = NULL;
+    time(&date);
+    struct tm* tm_info = localtime(&date);
+    buf = malloc(sizeof(char) *25);
+    strftime(buf, 25, "%Y:%m:%d:%H:%m:%S", tm_info);
+    puts(buf);
+    return buf;
 }

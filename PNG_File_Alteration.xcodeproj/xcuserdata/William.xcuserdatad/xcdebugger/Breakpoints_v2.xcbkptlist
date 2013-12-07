@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PNG_File_Alteration/bmpFileWrite.c"
-            timestampString = "408081742.735195"
+            timestampString = "408084737.950421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "bmpBottom()"
             landmarkType = "7">
          </BreakpointContent>
