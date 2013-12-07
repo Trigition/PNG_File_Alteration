@@ -1,0 +1,10 @@
+_Obj = bmp_header.o bmp_bottom.o
+
+all: bmp_header bmp_top
+#add bmp_bottom to all: and in _Obj
+
+bmp_header: bmp_header.c
+	gcc -g -Wall -c bmp_header.c
+
+bmp_top: bmp_header bmp_top.o
+	gcc -g -Wall -c bmp_top.c
