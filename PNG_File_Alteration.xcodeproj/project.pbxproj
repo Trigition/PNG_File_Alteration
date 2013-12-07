@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D2C45521852BB60001C23AE /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C45511852BB60001C23AE /* main.c */; };
 		3D2C45541852BB60001C23AE /* PNG_File_Alteration.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3D2C45531852BB60001C23AE /* PNG_File_Alteration.1 */; };
+		3D2C455C1852CC75001C23AE /* bmpFileWrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C455B1852CC75001C23AE /* bmpFileWrite.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		3D2C454E1852BB60001C23AE /* PNG_File_Alteration */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PNG_File_Alteration; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2C45511852BB60001C23AE /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		3D2C45531852BB60001C23AE /* PNG_File_Alteration.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = PNG_File_Alteration.1; sourceTree = "<group>"; };
+		3D2C455A1852CC68001C23AE /* bmpFileWrite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bmpFileWrite.h; sourceTree = "<group>"; };
+		3D2C455B1852CC75001C23AE /* bmpFileWrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmpFileWrite.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				3D2C45511852BB60001C23AE /* main.c */,
+				3D2C455A1852CC68001C23AE /* bmpFileWrite.h */,
+				3D2C455B1852CC75001C23AE /* bmpFileWrite.c */,
 				3D2C45531852BB60001C23AE /* PNG_File_Alteration.1 */,
 			);
 			path = PNG_File_Alteration;
@@ -118,6 +123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D2C45521852BB60001C23AE /* main.c in Sources */,
+				3D2C455C1852CC75001C23AE /* bmpFileWrite.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
