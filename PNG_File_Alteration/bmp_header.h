@@ -2,10 +2,12 @@
  *Header for both the top and bottom layer of creation. This includes
  *structures used in both processes (such as the bridging ds_bmp structure)
  *as well as functions that can be utilized in both (like a shared library)
- **/
+
+**/ 
 
 #ifndef __bmp_lib_global_head
 #define __bmp_lib_global_head
+
 
 #define RED 0
 #define GREEN 1
@@ -23,7 +25,7 @@ void delete_bmp(ds_bmp);
 unsigned long get_width(ds_bmp);
 unsigned long get_height(ds_bmp);
 char *get_name(ds_bmp);
-signed char ***get_pixels(ds_bmp);
+unsigned char ***get_pixels(ds_bmp);
 
 
 
