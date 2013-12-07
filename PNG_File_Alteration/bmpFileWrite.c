@@ -28,7 +28,7 @@ FILE *bmpBottom(ds_png *sentinel) {
 //Returns 0 upon FAIL
 int checkHeaderValidity(ds_png *sentinel) {
     int i;
-    char *header = NULL;
+    char *header = sentinel->name;
     if (header[0] != 'B' && header[1] != 'M')
     {
         printf("Error: expected first 2 bytes to the 'B' and 'M' but got '%c' and '%c'instead\n", header[0], header[1]);
