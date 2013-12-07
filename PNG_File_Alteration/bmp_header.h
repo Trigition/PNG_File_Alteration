@@ -7,6 +7,10 @@
 #ifndef __bmp_lib_global_head
 #define __bmp_lib_global_head
 
+#define RED 0
+#define GREEN 1
+#define BLUE 2
+
 //Remember that a variable of type ds_bmp is really a pointer to the structure
 typedef struct ds_bmp_sentinel *ds_bmp;
 
@@ -16,9 +20,10 @@ ds_bmp create_bmp(char const *name, unsigned long w, unsigned long h);
 void delete_bmp();
 
 /*Accessors*/
-unsigned long get_size(ds_bmp);
+unsigned long get_width(ds_bmp);
+unsigned long get_height(ds_bmp);
 char *get_name(ds_bmp);
-char **get_pixels(ds_bmp);
+char ***get_pixels(ds_bmp);
 
 
 
