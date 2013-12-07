@@ -17,13 +17,13 @@ typedef struct ds_bmp_sentinel *ds_bmp;
 
 /*Create and destroy*/
 ds_bmp create_bmp(char const *name, unsigned long w, unsigned long h);
-void delete_bmp();
+void delete_bmp(ds_bmp);
 
 /*Accessors*/
 unsigned long get_width(ds_bmp);
 unsigned long get_height(ds_bmp);
 char *get_name(ds_bmp);
-char ***get_pixels(ds_bmp);
+signed char ***get_pixels(ds_bmp);
 
 
 
