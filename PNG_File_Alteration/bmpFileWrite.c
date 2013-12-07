@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include "bmpFileWrite.h"
 #include "bmp_header.h"
 
@@ -18,7 +19,10 @@
 FILE *bmpBottom(ds_bmp sentinel) {
     FILE *newFile = NULL;
     char *fileName = NULL;
+    unsigned long estSize = get_width(sentinel) * get_height(sentinel);
+    unsigned long i;
     newFile = fopen(fileName, "w");
+
     return newFile;
 }
 
@@ -31,11 +35,7 @@ int checkHeaderValidity(ds_bmp sentinel) {
     char *header = get_name(sentinel);
     unsigned long bmpHeight = get_height(sentinel);
     unsigned long bmpWidth = get_width(sentinel);
-    if (header[0] != 'B' && header[1] != 'M')
-    {
-        printf("Error: expected first 2 bytes to the 'B' and 'M' but got '%c' and '%c'instead\n", header[0], header[1]);
-        return 0;
-    }
+    unsigned long estSize = bmpHeight * bmpWidth * 3; //Height * Width * byte size per pixel
     return 1;
 }
 
@@ -49,4 +49,30 @@ char *defaultFileNameWrite() {
     strftime(buf, 25, "%Y:%m:%d:%H:%m:%S", tm_info);
     puts(buf);
     return buf;
+}
+
+
+char *generateFileHeader(unsigned long arraySize) {
+    unsigned int i;
+    char *header = NULL;
+    unsigned long fileSize = 54 + pow(2, BPP) + arraySize*3;
+    header = malloc(sizeof(char) * fileSize);
+    
+    // ===FILE HEADER===//
+    
+    //bmp signature
+    header[0] = 'B';
+    header[1] = 'M';
+    
+    //write filesize
+    for (i = 2; i < 6; i++)
+    {
+        //Insert filesize write algorithm here
+    }
+    //Generate reserved space set to 0 by default
+    for (; i < 10; i++)
+    {
+        header[i] = 0;
+    }
+    //===BITMAP HEADER===//
 }
