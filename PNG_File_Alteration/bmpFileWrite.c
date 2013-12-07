@@ -15,7 +15,7 @@
 //Dumps generated bitmap into file
 //Returns file pointer on SUCCESS
 //Returns NULL on FAIL
-FILE *bmpBottom(ds_png *sentinel) {
+FILE *bmpBottom(ds_bmp sentinel) {
     FILE *newFile = NULL;
     char *fileName = NULL;
     newFile = fopen(fileName, "w");
@@ -26,9 +26,10 @@ FILE *bmpBottom(ds_png *sentinel) {
 //Determines if data is in correct order
 //Returns 1 upon SUCCESS
 //Returns 0 upon FAIL
-int checkHeaderValidity(ds_png *sentinel) {
+int checkHeaderValidity(ds_bmp sentinel) {
     int i;
-    char *header = sentinel->name;
+    char *header = get_name(sentinel);
+    unsigned long bmpSize = get_size(sentinel);
     if (header[0] != 'B' && header[1] != 'M')
     {
         printf("Error: expected first 2 bytes to the 'B' and 'M' but got '%c' and '%c'instead\n", header[0], header[1]);
