@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0C7E1718-0CA9-4697-8691-25426D0865CD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>PNG_File_Alteration</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F491BC04-DC21-47CE-BCC2-0D4B7F09567F</key>
+		<string>https://github.com/Trigition/PNG_File_Alteration.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PNG_File_Alteration.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F491BC04-DC21-47CE-BCC2-0D4B7F09567F</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Trigition/PNG_File_Alteration.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F491BC04-DC21-47CE-BCC2-0D4B7F09567F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F491BC04-DC21-47CE-BCC2-0D4B7F09567F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PNG_File_Alteration</string>
+		</dict>
+	</array>
+</dict>
+</plist>
