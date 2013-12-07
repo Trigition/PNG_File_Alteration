@@ -52,10 +52,10 @@ char *defaultFileNameWrite() {
 }
 
 
-char *generateFileHeader(unsigned long arraySize) {
+char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned long width) {
     unsigned int i;
     char *header = NULL;
-    unsigned long fileSize = 54 + pow(2, BPP) + arraySize*3;
+    unsigned long fileSize = 54 + pow(2, BPP/8) + arraySize*3;
     header = malloc(sizeof(char) * fileSize);
     
     // ===FILE HEADER===//
@@ -67,12 +67,77 @@ char *generateFileHeader(unsigned long arraySize) {
     //write filesize
     for (i = 2; i < 6; i++)
     {
-        //Insert filesize write algorithm here
+        header[i] = fileSize / pow(255, 5 - i);
+        fileSize = fileSize % (unsigned long)pow(255, 5 - i);
     }
     //Generate reserved space set to 0 by default
     for (; i < 10; i++)
     {
         header[i] = 0;
     }
+    header[10] = 54;
+    header[11] = 0;
+    header[12] = 0;
+    header[13] = 0;
     //===BITMAP HEADER===//
+    //header size
+    header[14] = 40; //DIB Header size
+    header[15] = 0;
+    header[16] = 0;
+    header[17] = 0;
+    //WIDTH
+    for (i = 18; i < 22; i++)
+    {
+        header[i] = width / pow(255, 21 - i);
+        width = width % (unsigned long)pow(255, 21 - i);
+    }
+    //HEIGHT
+    for (; i < 26; i++)
+    {
+        header[i] = height / pow(255, 29 - i);
+        height = height % (unsigned long)pow(255, 29 - i);
+    }
+    //RESERVED FIELD
+    header[26] = 1;
+    header[27] = 0;
+    //Bits per pixel
+    header[28] = BPP / 8;
+    header[29] = 0;
+    //Compression method (Set to 0 for no compression)
+    for (i = 30; i < 34; i++)
+    {
+        header[i] = 0;
+    }
+    //Size of pixel data
+    arraySize *= 3;
+    for (; i < 38; i++)
+    {
+        header[i] = arraySize / pow(255, 37 - i);
+        arraySize = arraySize % (unsigned long)pow(255, 37 -i);
+    }
+    //HORIZONTAL RESOLUTION 2,835 pixels per meter
+    header[38] = 0x13;
+    header[39] = 0x0B;
+    header[40] = 0;
+    header[41] = 0;
+    //VERTICAL RESOLUTION 2,835 pixels per meter
+    header[42] = 0x13;
+    header[43] = 0x0B;
+    header[44] = 0;
+    header[45] = 0;
+    // color pallette information
+    for (i = 46; i < 50; i++)
+    {
+        header[i] = 0;
+    }
+    // # of important colors: 0 means all colors are important
+    for (; i < 54; i++)
+    {
+        header[i] = 0;
+    }
+    //ENTER PIXEL DATA!!!
+    
+    
+    //RETURN header to copy
+    return header;
 }
