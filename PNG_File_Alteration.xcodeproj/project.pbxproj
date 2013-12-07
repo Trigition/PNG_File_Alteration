@@ -11,6 +11,8 @@
 		3D2C45541852BB60001C23AE /* PNG_File_Alteration.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3D2C45531852BB60001C23AE /* PNG_File_Alteration.1 */; };
 		3D2C455C1852CC75001C23AE /* bmpFileWrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C455B1852CC75001C23AE /* bmpFileWrite.c */; };
 		3D2C45601852D4BD001C23AE /* bmp_top.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C455E1852D4BD001C23AE /* bmp_top.c */; };
+		3D2C45631852E2CC001C23AE /* bmp_header.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C45611852E2CC001C23AE /* bmp_header.c */; };
+		3D2C45641852E2CC001C23AE /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C45621852E2CC001C23AE /* Makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +37,8 @@
 		3D2C455D1852D4BD001C23AE /* bmp_header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmp_header.h; sourceTree = "<group>"; };
 		3D2C455E1852D4BD001C23AE /* bmp_top.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmp_top.c; sourceTree = "<group>"; };
 		3D2C455F1852D4BD001C23AE /* bmp_top.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmp_top.h; sourceTree = "<group>"; };
+		3D2C45611852E2CC001C23AE /* bmp_header.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmp_header.c; sourceTree = "<group>"; };
+		3D2C45621852E2CC001C23AE /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,8 @@
 			isa = PBXGroup;
 			children = (
 				3D2C455D1852D4BD001C23AE /* bmp_header.h */,
+				3D2C45611852E2CC001C23AE /* bmp_header.c */,
+				3D2C45621852E2CC001C23AE /* Makefile */,
 				3D2C455E1852D4BD001C23AE /* bmp_top.c */,
 				3D2C455F1852D4BD001C23AE /* bmp_top.h */,
 				3D2C45511852BB60001C23AE /* main.c */,
@@ -129,6 +135,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D2C45641852E2CC001C23AE /* Makefile in Sources */,
+				3D2C45631852E2CC001C23AE /* bmp_header.c in Sources */,
 				3D2C45521852BB60001C23AE /* main.c in Sources */,
 				3D2C455C1852CC75001C23AE /* bmpFileWrite.c in Sources */,
 				3D2C45601852D4BD001C23AE /* bmp_top.c in Sources */,

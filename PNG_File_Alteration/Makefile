@@ -8,3 +8,8 @@ bmp_header: bmp_header.c
 
 bmp_top: bmp_header bmp_top.o
 	gcc -g -Wall -c bmp_top.c
+    
+bmpFileWrite: bmp_header bmpFileWrite.o
+    gcc -g -Wall -c bmpFileWrite.c
+    
+
