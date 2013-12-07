@@ -29,7 +29,8 @@ FILE *bmpBottom(ds_bmp sentinel) {
 int checkHeaderValidity(ds_bmp sentinel) {
     int i;
     char *header = get_name(sentinel);
-    unsigned long bmpSize = get_size(sentinel);
+    unsigned long bmpHeight = get_height(sentinel);
+    unsigned long bmpWidth = get_width(sentinel);
     if (header[0] != 'B' && header[1] != 'M')
     {
         printf("Error: expected first 2 bytes to the 'B' and 'M' but got '%c' and '%c'instead\n", header[0], header[1]);
