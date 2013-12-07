@@ -13,7 +13,7 @@
 
 FILE *bmpBottom(ds_png *sentinel); //Function dumps bmp char array to file
 
-int checkHeaderValidity(char *header);
+int checkHeaderValidity(ds_png *sentinel);
 char *defaultFileNameWrite();
 
 #endif

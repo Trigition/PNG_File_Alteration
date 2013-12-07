@@ -19,18 +19,7 @@ FILE *bmpBottom(ds_png *sentinel) {
     FILE *newFile = NULL;
     char *fileName = NULL;
     unsigned int expectFileSize;
-    //Check for file name
-    //PLANNING ON MOVING TO checkHeaderValidity
-    if (fileName == NULL)
-    {
-        fileName = defaultFileNameWrite(); //Set fileName to system time
-        newFile = fopen(fileName, "w");
-        free(fileName);
-    }
-    else
-    {
-        newFile = fopen(fileName, "w"); //Filename was given
-    }
+    newFile = fopen(fileName, "w");
     return newFile;
 }
 
@@ -38,8 +27,9 @@ FILE *bmpBottom(ds_png *sentinel) {
 //Determines if data is in correct order
 //Returns 1 upon SUCCESS
 //Returns 0 upon FAIL
-int checkHeaderValidity(char *header) {
+int checkHeaderValidity(ds_png *sentinel) {
     int i;
+    char *header = NULL;
     if (header[0] != 'B' && header[1] != 'M')
     {
         printf("Error: expected first 2 bytes to the 'B' and 'M' but got '%c' and '%c'instead\n", header[0], header[1]);
