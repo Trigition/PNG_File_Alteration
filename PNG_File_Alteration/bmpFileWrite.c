@@ -18,7 +18,6 @@
 FILE *bmpBottom(ds_png *sentinel) {
     FILE *newFile = NULL;
     char *fileName = NULL;
-    unsigned int expectFileSize;
     newFile = fopen(fileName, "w");
     return newFile;
 }
