@@ -11,9 +11,9 @@
 
 #include "bmp_header.h"
 
-FILE *bmpBottom(ds_png *sentinel); //Function dumps bmp char array to file
+FILE *bmpBottom(ds_bmp sentinel); //Function dumps bmp char array to file
 
-int checkHeaderValidity(ds_png *sentinel);
-char *defaultFileNameWrite();
+int checkHeaderValidity(ds_bmp sentinel);  //Validates header
+char *defaultFileNameWrite();  //If no filename is given, generate one
 
 #endif
