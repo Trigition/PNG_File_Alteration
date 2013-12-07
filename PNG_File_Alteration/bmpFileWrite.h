@@ -9,7 +9,9 @@
 #ifndef PNG_File_Alteration_bmpHeaderGen_h
 #define PNG_File_Alteration_bmpHeaderGen_h
 
-FILE *bmpBottom(char *header); //Function dumps bmp char array to file
+#include "bmp_header.h"
+
+FILE *bmpBottom(ds_png *sentinel); //Function dumps bmp char array to file
 
 int checkHeaderValidity(char *header);
 

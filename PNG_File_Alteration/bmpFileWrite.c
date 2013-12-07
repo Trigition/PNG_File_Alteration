@@ -9,17 +9,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "bmpFileWrite.h"
+#include "bmp_header.h"
 
 //Dumps generated bitmap into file
 //Returns file pointer on SUCCESS
 //Returns NULL on FAIL
-FILE *bmpBottom(char *header) {
+FILE *bmpBottom(ds_png *sentinel) {
     FILE *newFile = NULL;
+    char *fileName = NULL;
     int i;
     unsigned int expectFileSize;
+    newFile = fopen(fileName, "w");
     return newFile;
 }
 
+//Checks for header validity
+//Determines if data is in correct order
+//Returns 1 upon SUCCESS
+//Returns 0 upon FAIL
 int checkHeaderValidity(char *header) {
     int i;
     if (header[0] != 'B' && header[1] != 'M')
