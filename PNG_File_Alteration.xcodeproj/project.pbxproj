@@ -38,7 +38,7 @@
 		3D2C455E1852D4BD001C23AE /* bmp_top.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmp_top.c; sourceTree = "<group>"; };
 		3D2C455F1852D4BD001C23AE /* bmp_top.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmp_top.h; sourceTree = "<group>"; };
 		3D2C45611852E2CC001C23AE /* bmp_header.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmp_header.c; sourceTree = "<group>"; };
-		3D2C45621852E2CC001C23AE /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		3D2C45621852E2CC001C23AE /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

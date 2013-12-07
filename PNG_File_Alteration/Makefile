@@ -10,4 +10,4 @@ bmp_top: bmp_header bmp_top.c
 	gcc -g -Wall -c bmp_top.c
 
 bmpFileWrite: bmp_header bmpFileWrite.c
-    gcc -g -Wall -c bmpFileWrite.c
+	gcc -g -Wall -c bmpFileWrite.c
