@@ -11,10 +11,19 @@ struct ds_bmp_sentinel {
 
 ds_bmp create_bmp(char const *name, unsigned long w, unsigned long h) {
 	ds_bmp my_bmp;
+	unsigned i;
+	
+	//make our sentinel and reserve (and copy in) our name
 	my_bmp = malloc(sizeof(struct ds_bmp_sentinel));
 	my_bmp->name = malloc(sizeof(char) * (1 + strlen(name)));
 	strncpy(my_bmp->name, name, strlen(name));
 	*(my_bmp->name + strlen(name)) = '\0';
+	
+	//create 3d array
+	pixel_list = calloc(sizeof(char *) * w);
+	for (i = 0; i < w; i++) {
+		//for each 
+	}
 	
 	return my_bmp;
 }
