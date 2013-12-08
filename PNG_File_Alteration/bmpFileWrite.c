@@ -19,10 +19,24 @@
 FILE *bmpBottom(ds_bmp sentinel) {
     FILE *newFile = NULL;
     char *fileName = NULL;
+    if(get_name(sentinel) == NULL)
+    {
+        fileName = defaultFileNameWrite();
+    }
+    else
+    {
+        fileName = get_name(sentinel);
+    }
+    char *data = NULL;
     unsigned long estSize = get_width(sentinel) * get_height(sentinel);
     unsigned long i;
     newFile = fopen(fileName, "w");
-
+    data = generateFileHeader(estSize, get_height(sentinel), get_width(sentinel), (char***)get_pixels(sentinel));
+    for (i = 0; data[i] != '\n'; i++) {
+        fprintf(newFile, "%c", data[i]);
+    }
+    free(fileName);
+    free(data);
     return newFile;
 }
 
@@ -31,11 +45,11 @@ FILE *bmpBottom(ds_bmp sentinel) {
 //Returns 1 upon SUCCESS
 //Returns 0 upon FAIL
 int checkHeaderValidity(ds_bmp sentinel) {
-    int i;
-    char *header = get_name(sentinel);
-    unsigned long bmpHeight = get_height(sentinel);
-    unsigned long bmpWidth = get_width(sentinel);
-    unsigned long estSize = bmpHeight * bmpWidth * 3; //Height * Width * byte size per pixel
+    //int i;
+    //char *header = get_name(sentinel);
+    //unsigned long bmpHeight = get_height(sentinel);
+    //unsigned long bmpWidth = get_width(sentinel);
+    //unsigned long estSize = bmpHeight * bmpWidth * 3; //Height * Width * byte size per pixel
     return 1;
 }
 
@@ -52,7 +66,7 @@ char *defaultFileNameWrite() {
 }
 
 
-char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned long width) {
+char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned long width, char ***pixels) {
     unsigned int i;
     char *header = NULL;
     unsigned long fileSize = 54 + pow(2, BPP/8) + arraySize*3;
@@ -136,8 +150,19 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
         header[i] = 0;
     }
     //ENTER PIXEL DATA!!!
+        for (int j = 0; j < width; j++)
+        {
+            for (int k = 0; k < height; k++)
+            {
+                //Writing color R G B
+                for (int l = 0; l < 3; l++) {
+                    header[i] = pixels[j][k][l];
+                    i++;
+                }
+            }
+        }
     
-    
+    header[i] = '\n';
     //RETURN header to copy
     return header;
 }

@@ -14,8 +14,8 @@
 
 FILE *bmpBottom(ds_bmp sentinel); //Function dumps bmp char array to file
 
-int checkHeaderValidity(ds_bmp sentinel);  //Validates header
+int checkHeaderValidity(ds_bmp sentinel);  //Validates header COMMENTED OUT. KEEPING FUNCTION IN CASE TO READ IN FILE
 char *defaultFileNameWrite();  //If no filename is given, generate one
-char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned long width);
+char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned long width, char ***pixels);
 
 #endif
