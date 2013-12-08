@@ -117,7 +117,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     for (i = 2; i < 6; i++)
     {
         header[i] = fileSize / pow(255, 5 - i);
-        printf("\tgenerateFileHeader: Placed %c\n", header[i]);
+        printf("\tgenerateFileHeader: Placed %d\n", header[i]);
         fileSize = fileSize % (unsigned long)pow(255, 5 - i);
     }
     printf("generateFileHeader: Created filesize\n");
@@ -130,10 +130,13 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     }
     printf("generateFileHeader: Created reserved space\n");
     
+    printf("generateFileHeader: Creating PIXEL DATA offset\n");
     header[10] = 54;
     header[11] = 0;
     header[12] = 0;
     header[13] = 0;
+    printf("generateFileHeader: Created PIXEL DATA offset\n");
+    
     printf("generateFileHeader: Finished FILE HEADER\n");
     //===BITMAP HEADER===//
     //header size
@@ -171,7 +174,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     printf("generateFileHeader: Created Reserved field\n");
     //Bits per pixel
     printf("generateFileHeader: Creating BPP\n");
-    header[28] = BPP / 8;
+    header[28] = BPP;
     header[29] = 0;
     printf("generateFileHeader: Created BPP\n");
     
