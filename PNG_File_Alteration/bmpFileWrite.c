@@ -101,6 +101,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     
     unsigned int i;
     char *header = NULL;
+    char tmp[4];
     unsigned long fileSize = 54 + pow(2, BPP/8) + arraySize*3;
     header = malloc(sizeof(char) * fileSize);
     
@@ -116,8 +117,12 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     printf("generateFileHeader: Creating filesize\n");
     for (i = 2; i < 6; i++)
     {
-        header[6 - i] = fileSize / pow(255, 5 - i);
+        tmp[i - 2] = fileSize / pow(255, 5 - i);
         fileSize = fileSize % (unsigned long)pow(255, 5 - i);
+    }
+    for (i = 2; i < 6; i++)
+    {
+        header[i] = tmp[5 - i];
     }
     printf("\tgenerateFileHeader: Placed %d\n", header[2]);
     printf("\tgenerateFileHeader: Placed %d\n", header[3]);
