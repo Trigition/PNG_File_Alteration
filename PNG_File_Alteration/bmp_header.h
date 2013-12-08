@@ -13,14 +13,12 @@
 #define GREEN 1
 #define BLUE 2
 
-#define userless_variable
-
 //Remember that a variable of type ds_bmp is really a pointer to the structure
 typedef struct ds_bmp_sentinel *ds_bmp;
 
 
 /*Create and destroy*/
-ds_bmp create_bmp(char const *name, unsigned long w, unsigned long h);
+ds_bmp create_bmp(char const *filename, unsigned long w, unsigned long h);
 void delete_bmp(ds_bmp);
 
 /*Accessors*/

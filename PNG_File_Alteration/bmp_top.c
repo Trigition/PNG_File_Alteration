@@ -3,6 +3,7 @@
 #include <string.h>
 #include "bmp_header.h"
 #include "bmp_top.h"
+#include "bmpFileWrite.h"
 #include <math.h>
 
 struct ds_bmp_sentinel {
@@ -11,15 +12,15 @@ struct ds_bmp_sentinel {
 	char *name; //name of the file to create
 };
 
-ds_bmp create_bmp(char const *name, unsigned long w, unsigned long h) {
+ds_bmp create_bmp(char const *filename, unsigned long w, unsigned long h) {
 	ds_bmp my_bmp;
 	unsigned long i,j;
 	
 	//make our sentinel and reserve (and copy in) our name
 	my_bmp = malloc(sizeof(struct ds_bmp_sentinel));
-	my_bmp->name = malloc(sizeof(char) * (1 + strlen(name)));
-	strncpy(my_bmp->name, name, strlen(name));
-	*(my_bmp->name + strlen(name)) = '\0';
+	my_bmp->name = malloc(sizeof(char) * (1 + strlen(filename)));
+	strncpy(my_bmp->name, filename, strlen(filename) + 1);
+	*(my_bmp->name + strlen(filename)) = '\0';
 	
 	//set up width and height
 	my_bmp->width = w;
@@ -41,15 +42,15 @@ ds_bmp create_bmp(char const *name, unsigned long w, unsigned long h) {
 	return my_bmp;
 }
 
-ds_bmp create_bmp_ext(char const *name, unsigned long w, unsigned long h, unsigned char red, unsigned char green, unsigned char blue) {
+ds_bmp create_bmp_ext(char const *filename, unsigned long w, unsigned long h, unsigned char red, unsigned char green, unsigned char blue) {
 	ds_bmp my_bmp;
 	unsigned long i,j;
 	
 	//make our sentinel and reserve (and copy in) our name
 	my_bmp = malloc(sizeof(struct ds_bmp_sentinel));
-	my_bmp->name = malloc(sizeof(char) * (1 + strlen(name)));
-	strncpy(my_bmp->name, name, strlen(name));
-	*(my_bmp->name + strlen(name)) = '\0';
+	my_bmp->name = malloc(sizeof(char) * (1 + strlen(filename)));
+	strncpy(my_bmp->name, filename, strlen(filename) + 1);
+	*(my_bmp->name + strlen(filename)) = '\0';
 	
 	//set up width and height
 	my_bmp->width = w;
@@ -140,9 +141,9 @@ void bmp_gradient(ds_bmp map, unsigned char red_start, unsigned char green_start
 	dg = (double) (green_end - green_start);
 	db = (double) (blue_end - blue_start);
 	
-	dr = dr/map->width; //dr has how much each pixel should change in red value
-	dg = dg/map->width;
-	db = db/map->width;
+	dr = dr/(map->width - 1); //dr has how much each pixel should change in red value
+	dg = dg/(map->width - 1);
+	db = db/(map->width - 1);
 	
 	
 	 
@@ -166,4 +167,20 @@ void bmp_gradient(ds_bmp map, unsigned char red_start, unsigned char green_start
 	}
 }
 
+void bmp_set_name(ds_bmp map, char const *filename) {
+	free(map->name);
+	map->name = malloc(sizeof(char) * (1 + strlen(filename)));
+	strcpy(map->name, filename);
+}
 
+void bmp_write(ds_bmp map) {
+	FILE *result;
+	
+	result = bmpBottom(map);
+	
+	if (result==NULL)
+		printf("There has been an error writing to the file!\nPlease make certain the file doesn't already exist, or\nyou have permission to overwrite it!\n");
+	
+	fclose(result);
+	
+}

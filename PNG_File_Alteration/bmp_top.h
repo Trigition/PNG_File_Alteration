@@ -10,12 +10,15 @@
  **/
 
 //Creates bmp with initial rgb values
-ds_bmp create_bmp_ext(char const *name, unsigned long w, unsigned long h, unsigned char red, unsigned char green, unsigned char blue);
+ds_bmp create_bmp_ext(char const *filename, unsigned long w, unsigned long h, unsigned char red, unsigned char green, unsigned char blue);
 
 /*Accessor Functions*/
 unsigned char pixel_get_red(ds_bmp map, unsigned long x, unsigned long y);
 unsigned char pixel_get_green(ds_bmp map, unsigned long x, unsigned long y);
 unsigned char pixel_get_blue(ds_bmp map, unsigned long x, unsigned long y);
+unsigned long get_width(ds_bmp);
+unsigned long get_height(ds_bmp);
+void bmp_set_name(ds_bmp map, char const *filename);
 
 //set_pixel sets rgb values
 void set_pixel(ds_bmp map, unsigned long x, unsigned long y, unsigned char red, unsigned char green, unsigned char blue);
@@ -31,6 +34,10 @@ void sub_pixel(ds_bmp map, unsigned long x, unsigned long y, unsigned char red, 
 /*General Drawing Functions*/
 //Makes a simple gradient from left to right. mode is MODE_ADD/_SET/_SUB
 void bmp_gradient(ds_bmp map, unsigned char red_start, unsigned char green_start, unsigned char blue_start, unsigned char red_end, unsigned char green_end, unsigned char blue_end, char mode);
+
+/*Writing to file*/
+//Writes bmp to file. Uses name passed with creation as filename
+void bmp_write(ds_bmp map);
 
 
 #endif
