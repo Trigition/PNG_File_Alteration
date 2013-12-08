@@ -40,6 +40,7 @@ FILE *bmpBottom(ds_bmp sentinel) {
     
     char *data = NULL;
     unsigned long estSize = get_width(sentinel) * get_height(sentinel);
+    unsigned long fileSize = 54 + pow(2, BPP/8) + estSize*3;
     unsigned long i;
     
     printf("Writing file...\n");
@@ -57,7 +58,7 @@ FILE *bmpBottom(ds_bmp sentinel) {
     
     //WRITE TO FILE
     printf("bmpBottom: Writing data to file...\n");
-    for (i = 0; data[i] != '\n'; i++) {
+    for (i = 0; i < fileSize; i++) {
         fprintf(newFile, "%c", data[i]);
     }
     
@@ -65,7 +66,7 @@ FILE *bmpBottom(ds_bmp sentinel) {
     //Free variables which have already been written to file
     free(fileName);
     free(data);
-    printf("bmpBottom: Freed variables. Returning");
+    printf("bmpBottom: Freed variables. Returning\n");
     //Return file pointer
     return newFile;
 }
@@ -244,7 +245,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     printf("generateFileHeader: Created pixel data\n");
     
     printf("generateFileHeader: Creating end of buffer\n");
-    header[i] = '\n';
+    header[i] = '\0';
     //RETURN header to copy
     printf("generateFileHeader: Returning\n");
     return header;
