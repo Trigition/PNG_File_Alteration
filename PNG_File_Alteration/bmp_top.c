@@ -167,6 +167,62 @@ void bmp_gradient(ds_bmp map, unsigned char red_start, unsigned char green_start
 	}
 }
 
+void bmp_draw_line(ds_bmp map, unsigned long start_x, unsigned long start_y, unsigned long end_x, unsigned long end_y, signed char red, signed char green, signed char blue) {
+	/*
+	gets slope of line. starts at start_x/y and goes to end_x/y. width of 3	
+	*/
+	double dx, dy, y, ymax; //y has to be double because decimals :(
+	unsigned long x;
+	if (end_x < start_x) {
+		x = end_x;
+		end_x = start_x;
+		start_x = x;
+	}
+	if (end_y < start_y) {
+		y = (double) end_y;
+		end_y = start_y;
+		start_y = (unsigned long) y;
+	}
+	
+	dx = end_x-start_x;
+	dy = end_y-start_y;
+	
+	//we need one variable to be 0. we choose y
+	dy = dy/dx;
+	dx = 0; //dx/dx
+	
+	y = start_y;
+	for (x = start_x; x <= end_x; x++) {
+		ymax = y+dy;
+		for (/*we want y to continue*/ ; y < ymax; y++) {
+			//middle pixel
+			map->pixel_list[x][(unsigned long) y][RED] = red;
+			map->pixel_list[x][(unsigned long) y][GREEN] = green;
+			map->pixel_list[x][(unsigned long) y][BLUE] = blue;
+			
+			//top pixel
+			map->pixel_list[x][(unsigned long) (y-1)][RED] = red;
+			map->pixel_list[x][(unsigned long) (y-1)][GREEN] = green;
+			map->pixel_list[x][(unsigned long) (y-1)][BLUE] = blue;
+			
+			//bottom pixel
+			map->pixel_list[x][(unsigned long) (y+1)][RED] = red;
+			map->pixel_list[x][(unsigned long) (y+1)][GREEN] = green;
+			map->pixel_list[x][(unsigned long) (y+1)][BLUE] = blue;
+			
+			//left pixel
+			map->pixel_list[x-1][(unsigned long) y][RED] = red;
+			map->pixel_list[x-1][(unsigned long) y][GREEN] = green;
+			map->pixel_list[x-1][(unsigned long) y][BLUE] = blue;
+			
+			//right pixel
+			map->pixel_list[x+1][(unsigned long) y][RED] = red;
+			map->pixel_list[x+1][(unsigned long) y][GREEN] = green;
+			map->pixel_list[x+1][(unsigned long) y][BLUE] = blue;
+		}
+	}	
+}
+
 void bmp_set_name(ds_bmp map, char const *filename) {
 	free(map->name);
 	map->name = malloc(sizeof(char) * (1 + strlen(filename)));
