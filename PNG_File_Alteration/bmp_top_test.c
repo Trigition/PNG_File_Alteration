@@ -10,7 +10,7 @@ int main() {
 	my_map = create_bmp_ext("My Map.bmp", 10, 10, 0, 0, 0);
 	print_array(my_map);
 	printf("======\n");
-	bmp_draw_line(my_map, 3, 3, 6, 6, 1, 0, 0);
+	//bmp_draw_line(my_map, 3, 3, 3, 6, 1, 0, 0);
 	print_array(my_map);
 	
 	bmp_write(my_map);

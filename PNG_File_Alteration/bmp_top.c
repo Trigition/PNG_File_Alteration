@@ -188,13 +188,16 @@ void bmp_draw_line(ds_bmp map, unsigned long start_x, unsigned long start_y, uns
 	dy = end_y-start_y;
 	
 	//we need one variable to be 0. we choose y
-	dy = dy/dx;
-	dx = 0; //dx/dx
+	dy = dy/min_ul(dx, 1);
+	dx = 1; //dx/dx
 	
 	y = start_y;
 	for (x = start_x; x <= end_x; x++) {
 		ymax = y+dy;
-		for (/*we want y to continue*/ ; y < ymax; y++) {
+		printf("New Row\n");
+		for (/*we want y to continue*/ ; y < ymax; y = min_d(y+1, ymax)) {
+			printf("Starting pixel (%lu, %lu)\n", x, (unsigned long) y);
+			
 			//middle pixel
 			map->pixel_list[x][(unsigned long) y][RED] = red;
 			map->pixel_list[x][(unsigned long) y][GREEN] = green;
@@ -239,4 +242,16 @@ void bmp_write(ds_bmp map) {
 	
 	fclose(result);
 	
+}
+
+double min_d(double a, double b) {
+	if (a <= b)
+		return a;
+	return b;
+}
+
+unsigned long min_ul(unsigned long a, unsigned long b) {
+	if (a <= b)
+		return a;
+	return b;
 }
