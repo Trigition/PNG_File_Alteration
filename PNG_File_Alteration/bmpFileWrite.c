@@ -120,8 +120,13 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
         tmp[i - 2] = fileSize / pow(255, 5 - i);
         fileSize = fileSize % (unsigned long)pow(255, 5 - i);
     }
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[0]);
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[1]);
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[2]);
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[3]);
     for (i = 2; i < 6; i++)
     {
+        printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 5 - i);
         header[i] = tmp[5 - i];
     }
     printf("\tgenerateFileHeader: Placed %d\n", header[2]);
