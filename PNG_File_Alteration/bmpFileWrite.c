@@ -110,7 +110,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     //bmp signature
     printf("generateFileHeader: Creating 'BM' header...\n");
     header[0] = 'B';
-    header[1] = 'M';
+    header[1] = 77; //'M'
     printf("generateFileHeader: Created 'BM' header\n");
     
     //write filesize

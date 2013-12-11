@@ -35,12 +35,12 @@
 		3D2C45531852BB60001C23AE /* PNG_File_Alteration.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = PNG_File_Alteration.1; sourceTree = "<group>"; };
 		3D2C455A1852CC68001C23AE /* bmpFileWrite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bmpFileWrite.h; sourceTree = "<group>"; };
 		3D2C455B1852CC75001C23AE /* bmpFileWrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmpFileWrite.c; sourceTree = "<group>"; };
-		3D2C455D1852D4BD001C23AE /* bmp_header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmp_header.h; sourceTree = "<group>"; };
-		3D2C455E1852D4BD001C23AE /* bmp_top.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmp_top.c; sourceTree = "<group>"; };
-		3D2C455F1852D4BD001C23AE /* bmp_top.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmp_top.h; sourceTree = "<group>"; };
-		3D2C45611852E2CC001C23AE /* bmp_header.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmp_header.c; sourceTree = "<group>"; };
-		3D2C45621852E2CC001C23AE /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
-		3D4505E7185469130008BB09 /* bmp_top_test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmp_top_test.c; sourceTree = "<group>"; };
+		3D2C455D1852D4BD001C23AE /* bmp_header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bmp_header.h; path = /Users/William/Documents/PNG_File_Alteration/PNG_File_Alteration/bmp_header.h; sourceTree = "<absolute>"; };
+		3D2C455E1852D4BD001C23AE /* bmp_top.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bmp_top.c; path = /Users/William/Documents/PNG_File_Alteration/PNG_File_Alteration/bmp_top.c; sourceTree = "<absolute>"; };
+		3D2C455F1852D4BD001C23AE /* bmp_top.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bmp_top.h; path = /Users/William/Documents/PNG_File_Alteration/PNG_File_Alteration/bmp_top.h; sourceTree = "<absolute>"; };
+		3D2C45611852E2CC001C23AE /* bmp_header.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bmp_header.c; path = /Users/William/Documents/PNG_File_Alteration/PNG_File_Alteration/bmp_header.c; sourceTree = "<absolute>"; };
+		3D2C45621852E2CC001C23AE /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = /Users/William/Documents/PNG_File_Alteration/PNG_File_Alteration/Makefile; sourceTree = "<absolute>"; usesTabs = 1; };
+		3D4505E7185469130008BB09 /* bmp_top_test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bmp_top_test.c; path = /Users/William/Documents/PNG_File_Alteration/PNG_File_Alteration/bmp_top_test.c; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
