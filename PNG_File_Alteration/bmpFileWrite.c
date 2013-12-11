@@ -40,7 +40,7 @@ FILE *bmpBottom(ds_bmp sentinel) {
     
     char *data = NULL;
     unsigned long estSize = get_width(sentinel) * get_height(sentinel);
-    unsigned long fileSize = 54 + pow(2, BPP/8) + estSize*3;
+    unsigned long fileSize = 54 + (get_height(sentinel) * get_width(sentinel) * 3) + get_height(sentinel)*(get_width(sentinel) % 4);
     unsigned long i;
     
     printf("Writing file...\n");
@@ -102,9 +102,10 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     unsigned int i;
     char *header = NULL;
     char tmp[4];
-    unsigned long fileSize = 54 + pow(2, BPP/8) + arraySize*3;
+    unsigned long fileSize = 54 + (height * width * 3) + height*(width % 4);
     unsigned long pixelW = width;
     unsigned long pixelH = height;
+    printf("File size: %lu\n", fileSize);
     printf("Width size: %lu\n", pixelW);
     printf("Height size: %lu\n", pixelH);
     header = malloc(sizeof(char) * fileSize);
@@ -227,7 +228,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     //HORIZONTAL RESOLUTION 2,835 pixels per meter
     printf("generateFileHeader: Creating HORIZ resolution\n");
     header[38] = 0x13;
-    header[39] = 0x0B;
+    header[39] = 30;
     header[40] = 0;
     header[41] = 0;
     printf("generateFileHeader: Creating HORIZ resolution\n");
@@ -235,7 +236,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     //VERTICAL RESOLUTION 2,835 pixels per meter
     printf("generateFileHeader: Creating VERT resolution\n");
     header[42] = 0x13;
-    header[43] = 0x0B;
+    header[43] = 30;
     header[44] = 0;
     header[45] = 0;
     printf("generateFileHeader: Created VERT resolution\n");
@@ -268,15 +269,22 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
             {
                 //Writing color R G B
                 for (l = 0; l < 3; l++) {
+                    printf("\t\tAt index %d\n", i);
                     header[i] = pixels[j][k][l];
                     i++;
                 }
             }
+            printf("PRINTING PADDING %d\n", i);
+            header[i] = 1;
+            i++;
+            printf("PRINTING PADDING %d\n", i);
+            header[i] = 1;
+            i++;
         }
     printf("generateFileHeader: Created pixel data\n");
     
     printf("generateFileHeader: Creating end of buffer\n");
-    //header[i] = '\0';
+    header[i] = 33;
     //RETURN header to copy
     printf("generateFileHeader: Returning\n");
     return header;
