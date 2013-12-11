@@ -263,14 +263,14 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     unsigned long j;
     unsigned long k;
     unsigned long l;
-        for (j = 0; j < pixelW; j++)
+        for (j = 0; j < pixelH; j++)
         {
-            for (k = 0; k < pixelH; k++)
+            for (k = 0; k < pixelW; k++)
             {
                 //Writing color R G B
                 for (l = 0; l < 3; l++) {
                     //printf("\t\tAt index %d\n", i);
-                    header[i] = pixels[j][k][l];
+                    header[i] = pixels[k][j][l];
                     i++;
                 }
             }
