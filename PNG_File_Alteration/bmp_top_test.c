@@ -7,7 +7,7 @@ void print_array(ds_bmp map);
 int main() {
 	
 	ds_bmp my_map;
-	my_map = create_bmp_ext("My Map.bmp", 100, 100, 255, 255, 255);
+	my_map = create_bmp_ext("My Map.bmp", 1000, 1000, 255, 255, 255);
 	print_array(my_map);
 	printf("======\n");
 	bmp_draw_line(my_map, 2, 2, 7, 7, 0, 0, 0);
