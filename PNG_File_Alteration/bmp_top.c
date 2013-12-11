@@ -81,7 +81,7 @@ void delete_bmp(ds_bmp my_bmp) {
 		free(my_bmp->pixel_list[i]);
 	}
 	free(my_bmp->pixel_list);
-	free(my_bmp->name);
+	//free(my_bmp->name);//willy frees in the ocean
 	free(my_bmp); //:'(
 }
 

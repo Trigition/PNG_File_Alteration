@@ -10,7 +10,7 @@ int main() {
 	my_map = create_bmp_ext("My Map.bmp", 100, 100, 255, 255, 255);
 	print_array(my_map);
 	printf("======\n");
-	bmp_draw_line(my_map, 25, 25, 75, 75, 0, 0, 0);
+	bmp_draw_line(my_map, 2, 2, 7, 7, 0, 0, 0);
 	bmp_gradient(my_map, 0, 0, 0, 0, 0, 255, MODE_SUB);
 	bmp_gradient(my_map, 0, 64, 0, 0, 255, 0, MODE_SUB);
 	print_array(my_map);
