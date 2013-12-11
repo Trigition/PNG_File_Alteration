@@ -118,12 +118,10 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     for (i = 2; i < 6; i++)
     {
         tmp[i - 2] = fileSize / pow(255, 5 - i);
+        printf("\tgenerateFileHeader: DEBUG; %d\n", tmp[i - 2]);
         fileSize = fileSize % (unsigned long)pow(255, 5 - i);
     }
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[0]);
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[1]);
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[2]);
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[3]);
+    
     for (i = 2; i < 6; i++)
     {
         printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 5 - i);
@@ -165,12 +163,10 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     for (i = 18; i < 22; i++)
     {
         tmp[i - 18] = width / pow(255, 21 - i);
+        printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[i - 18]);
         width = width % (unsigned long)pow(255, 21 - i);
     }
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[0]);
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[1]);
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[2]);
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[3]);
+    
     for (i = 18; i < 22; i++)
     {
         printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 22 - i);
@@ -183,12 +179,10 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     for (i = 22; i < 26; i++)
     {
         tmp[i - 22] = height / pow(255, 26 - i);
+        printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[i - 22]);
         height = height % (unsigned long)pow(255, 26 - i);
     }
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[0]);
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[1]);
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[2]);
-    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[3]);
+    
     for (i = 22; i < 26; i++)
     {
         printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 25 - i);
@@ -220,14 +214,13 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     arraySize *= 3;
     for (i = 34; i < 38; i++)
     {
-        header[38 - i] = arraySize / pow(255, 37 - i);
+        tmp[i - 34] = arraySize / pow(255, 37 - i);
         arraySize = arraySize % (unsigned long)pow(255, 37 -i);
     }
-    printf("\tgenerateFileHeader: Placed %d\n", header[34]);
-    printf("\tgenerateFileHeader: Placed %d\n", header[35]);
-    printf("\tgenerateFileHeader: Placed %d\n", header[36]);
-    printf("\tgenerateFileHeader: Placed %d\n", header[37]);
-    
+    for (i = 34; i < 38; i++) {
+        header[i] = tmp[37 - i];
+        printf("\tgenerateFileHeader: Placed %d\n", header[i]);
+    }
     printf("generateFileHeader: Created array size\n");
     
     //HORIZONTAL RESOLUTION 2,835 pixels per meter
