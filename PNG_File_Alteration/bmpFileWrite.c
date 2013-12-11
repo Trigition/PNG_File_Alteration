@@ -167,8 +167,17 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     printf("generateFileHeader: Creating WIDTH\n");
     for (i = 18; i < 22; i++)
     {
-        header[22 - i] = width / pow(255, 21 - i);
+        tmp[i - 18] = width / pow(255, 21 - i);
         width = width % (unsigned long)pow(255, 21 - i);
+    }
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[0]);
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[1]);
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[2]);
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[3]);
+    for (i = 18; i < 22; i++)
+    {
+        printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 22 - i);
+        header[i] = tmp[21 - i];
     }
     printf("generateFileHeader: Created WIDTH\n");
     
@@ -176,8 +185,17 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     printf("generateFileHeader: Creating HEIGHT\n");
     for (; i < 26; i++)
     {
-        header[26 - i] = height / pow(255, 29 - i);
-        height = height % (unsigned long)pow(255, 29 - i);
+        tmp[i - 22] = height / pow(255, 26 - i);
+        height = height % (unsigned long)pow(255, 26 - i);
+    }
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[0]);
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[1]);
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[2]);
+    printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[3]);
+    for (i = 22; i < 26; i++)
+    {
+        printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 5 - i);
+        header[i] = tmp[25 - i];
     }
     printf("generateFileHeader: Created HEIGHT\n");
     
