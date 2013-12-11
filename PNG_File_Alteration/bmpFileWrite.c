@@ -33,8 +33,8 @@ FILE *bmpBottom(ds_bmp sentinel) {
     }
     else
     {
-        printf("bmpBottom: Using filename: %s\n", fileName);
         fileName = get_name(sentinel);
+        printf("bmpBottom: Using filename: %s\n", fileName);
     }
     
     
@@ -105,7 +105,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     unsigned long fileSize = 54 + pow(2, BPP/8) + arraySize*3;
     header = malloc(sizeof(char) * fileSize);
     
-    // ===FILE HEADER===//
+    // ===FILE HEADER=== //
     printf("generateFileHeader: Starting BITMAP HEADER\n");
     //bmp signature
     printf("generateFileHeader: Creating 'BM' header...\n");
@@ -113,7 +113,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     header[1] = 77; //'M'
     printf("generateFileHeader: Created 'BM' header\n");
     
-    //write filesize
+    // ===FILE SIZE=== //
     printf("generateFileHeader: Creating filesize\n");
     for (i = 2; i < 6; i++)
     {
@@ -128,17 +128,14 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     {
         printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 5 - i);
         header[i] = tmp[5 - i];
+        printf("\tgenerateFileHeader: Placed %d\n", header[i]);
     }
-    printf("\tgenerateFileHeader: Placed %d\n", header[2]);
-    printf("\tgenerateFileHeader: Placed %d\n", header[3]);
-    printf("\tgenerateFileHeader: Placed %d\n", header[4]);
-    printf("\tgenerateFileHeader: Placed %d\n", header[5]);
-    
+
     printf("generateFileHeader: Created filesize\n");
-    //Generate reserved space set to 0 by default
+    // ===RESERVED SPACE=== ///
     
     printf("generateFileheader: Creating reserved space\n");
-    for (; i < 10; i++)
+    for (i = 6; i < 10; i++)
     {
         header[i] = 0;
     }
@@ -183,7 +180,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     
     //HEIGHT
     printf("generateFileHeader: Creating HEIGHT\n");
-    for (; i < 26; i++)
+    for (i = 22; i < 26; i++)
     {
         tmp[i - 22] = height / pow(255, 26 - i);
         height = height % (unsigned long)pow(255, 26 - i);
@@ -194,7 +191,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[3]);
     for (i = 22; i < 26; i++)
     {
-        printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 5 - i);
+        printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 25 - i);
         header[i] = tmp[25 - i];
     }
     printf("generateFileHeader: Created HEIGHT\n");
@@ -221,7 +218,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     //Size of pixel data
     printf("generateFileHeader: Creating array size\n");
     arraySize *= 3;
-    for (; i < 38; i++)
+    for (i = 34; i < 38; i++)
     {
         header[38 - i] = arraySize / pow(255, 37 - i);
         arraySize = arraySize % (unsigned long)pow(255, 37 -i);
@@ -259,7 +256,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     
     // # of important colors: 0 means all colors are important
     printf("generateFileHeader: Creating 'important color field'. \n\tAll colors important, defaulting to 0\n");
-    for (; i < 54; i++)
+    for (i = 50; i < 54; i++)
     {
         header[i] = 0;
     }
@@ -267,6 +264,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     
     //ENTER PIXEL DATA!!!
     printf("generateFileHeader: Creating pixel data\n");
+    i = 54;
     int j;
     int k;
     int l;
@@ -284,7 +282,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     printf("generateFileHeader: Created pixel data\n");
     
     printf("generateFileHeader: Creating end of buffer\n");
-    header[i] = '\0';
+    //header[i] = '\0';
     //RETURN header to copy
     printf("generateFileHeader: Returning\n");
     return header;
