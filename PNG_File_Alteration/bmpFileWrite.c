@@ -123,14 +123,14 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     for (i = 2; i < 6; i++)
     {
         tmp[i - 2] = fileSize / pow(255, 5 - i);
-        printf("\tgenerateFileHeader: DEBUG; %d\n", tmp[i - 2]);
+        printf("\tgenerateFileHeader: DEBUG; %u\n", tmp[i - 2]);
         fileSize = fileSize % (unsigned long)pow(255, 5 - i);
     }
     
     for (i = 2; i < 6; i++)
     {
         header[i] = tmp[5 - i];
-        printf("\tgenerateFileHeader: Placed %d\n", header[i]);
+        printf("\tgenerateFileHeader: Placed %u\n", header[i]);
     }
 
     printf("generateFileHeader: Created filesize\n");
@@ -173,7 +173,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     for (i = 18; i < 22; i++)
     {
         header[i] = tmp[21 - i];
-        printf("\tgenerateFileHeader: placed %d at header[%d]\n", header[i], i);
+        printf("\tgenerateFileHeader: placed %u at header[%u]\n", header[i], i);
     }
     printf("generateFileHeader: Created WIDTH\n");
     
@@ -188,7 +188,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     for (i = 22; i < 26; i++)
     {
         header[i] = tmp[25 - i];
-        printf("generateFileHeader: placed %d at header %d\n", header[i], i);
+        printf("generateFileHeader: placed %u at header %u\n", header[i], i);
     }
     printf("generateFileHeader: Created HEIGHT\n");
     
@@ -221,7 +221,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     }
     for (i = 34; i < 38; i++) {
         header[i] = tmp[37 - i];
-        printf("\tgenerateFileHeader: Placed %d\n", header[i]);
+        printf("\tgenerateFileHeader: Placed %u\n", header[i]);
     }
     printf("generateFileHeader: Created array size\n");
     
