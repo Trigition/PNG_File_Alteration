@@ -274,12 +274,16 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
                     i++;
                 }
             }
+            while ((i - 54) % 4 != 0) {
+                header[i] = i;
+                i++;
+            }
             //printf("PRINTING PADDING %d\n", i);
-            header[i] = 1;
-            i++;
+            //header[i] = 1;
+            //i++;
             //printf("PRINTING PADDING %d\n", i);
-            header[i] = 1;
-            i++;
+            //header[i] = 1;
+            //i++;
         }
     printf("generateFileHeader: Created pixel data\n");
     
