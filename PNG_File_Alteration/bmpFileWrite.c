@@ -103,6 +103,8 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     char *header = NULL;
     char tmp[4];
     unsigned long fileSize = 54 + pow(2, BPP/8) + arraySize*3;
+    unsigned long pixelW = width;
+    unsigned long pixelH = height;
     header = malloc(sizeof(char) * fileSize);
     
     // ===FILE HEADER=== //
@@ -110,7 +112,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     //bmp signature
     printf("generateFileHeader: Creating 'BM' header...\n");
     header[0] = 'B';
-    header[1] = 77; //'M'
+    header[1] = 'M';
     printf("generateFileHeader: Created 'BM' header\n");
     
     // ===FILE SIZE=== //
@@ -258,12 +260,12 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     //ENTER PIXEL DATA!!!
     printf("generateFileHeader: Creating pixel data\n");
     i = 54;
-    int j;
-    int k;
-    int l;
-        for (j = 0; j < width; j++)
+    unsigned long j;
+    unsigned long k;
+    unsigned long l;
+        for (j = 0; j < pixelW; j++)
         {
-            for (k = 0; k < height; k++)
+            for (k = 0; k < pixelH; k++)
             {
                 //Writing color R G B
                 for (l = 0; l < 3; l++) {
