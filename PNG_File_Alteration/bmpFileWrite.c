@@ -270,7 +270,7 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
                 //Writing color R G B
                 for (l = 0; l < 3; l++) {
                     //printf("\t\tAt index %d\n", i);
-                    header[i] = pixels[k][j][l];
+                    header[i] = pixels[j][k][l];
                     i++;
                 }
             }
