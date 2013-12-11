@@ -48,5 +48,6 @@ void bmp_draw_line(ds_bmp map, unsigned long start_x, unsigned long start_y, uns
 /*Helper Functions*/
 double min_d(double a, double b);
 unsigned long min_ul(unsigned long a, unsigned long b);
+unsigned long max_ul(unsigned long, unsigned long);
 
 #endif

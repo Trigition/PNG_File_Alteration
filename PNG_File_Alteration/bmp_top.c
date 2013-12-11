@@ -188,13 +188,14 @@ void bmp_draw_line(ds_bmp map, unsigned long start_x, unsigned long start_y, uns
 	dy = end_y-start_y;
 	
 	//we need one variable to be 0. we choose y
-	dy = dy/min_ul(dx, 1);
+	dy = dy/max_ul(dx, 1);
 	dx = 1; //dx/dx
 	
 	y = start_y;
+	printf("Dx: %lf      Dy: %lf\n", dx, dy);
 	for (x = start_x; x <= end_x; x++) {
 		ymax = y+dy;
-		printf("New Row\n");
+		printf("New Row\nymax = %lf\n", ymax);
 		for (/*we want y to continue*/ ; y < ymax; y = min_d(y+1, ymax)) {
 			printf("Starting pixel (%lu, %lu)\n", x, (unsigned long) y);
 			
@@ -252,6 +253,12 @@ double min_d(double a, double b) {
 
 unsigned long min_ul(unsigned long a, unsigned long b) {
 	if (a <= b)
+		return a;
+	return b;
+}
+
+unsigned long max_ul(unsigned long a, unsigned long b) {
+	if (a >= b)
 		return a;
 	return b;
 }

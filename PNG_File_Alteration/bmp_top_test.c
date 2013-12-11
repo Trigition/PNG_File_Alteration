@@ -7,10 +7,10 @@ void print_array(ds_bmp map);
 int main() {
 	
 	ds_bmp my_map;
-	my_map = create_bmp_ext("My Map.bmp", 10, 10, 46, 0, 0);
+	my_map = create_bmp_ext("My Map.bmp", 10, 10, 255, 255, 255);
 	print_array(my_map);
 	printf("======\n");
-	//bmp_draw_line(my_map, 3, 3, 3, 6, 1, 0, 0);
+	bmp_gradient(my_map, 0, 0, 0, 255, 255, 255, MODE_SET);
 	print_array(my_map);
 	
 	bmp_write(my_map);
@@ -29,7 +29,7 @@ void print_array(ds_bmp map) {
 	//walk through, print out red values
 	for (j = 0; j < w; j++) {
 		for (i = 0; i < h; i++) {
-			printf("%u ", pixel_get_red(map, i, j));
+			printf("%3.0u ", pixel_get_red(map, i, j));
 		}
 	printf("\n");
 	}
