@@ -105,6 +105,8 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     unsigned long fileSize = 54 + pow(2, BPP/8) + arraySize*3;
     unsigned long pixelW = width;
     unsigned long pixelH = height;
+    printf("Width size: %lu\n", pixelW);
+    printf("Height size: %lu\n", pixelH);
     header = malloc(sizeof(char) * fileSize);
     
     // ===FILE HEADER=== //
@@ -126,7 +128,6 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     
     for (i = 2; i < 6; i++)
     {
-        printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 5 - i);
         header[i] = tmp[5 - i];
         printf("\tgenerateFileHeader: Placed %d\n", header[i]);
     }
@@ -165,14 +166,13 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     for (i = 18; i < 22; i++)
     {
         tmp[i - 18] = width / pow(255, 21 - i);
-        printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[i - 18]);
         width = width % (unsigned long)pow(255, 21 - i);
     }
     
     for (i = 18; i < 22; i++)
     {
-        printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 22 - i);
         header[i] = tmp[21 - i];
+        printf("\tgenerateFileHeader: placed %d at header[%d]\n", header[i], i);
     }
     printf("generateFileHeader: Created WIDTH\n");
     
@@ -180,15 +180,14 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     printf("generateFileHeader: Creating HEIGHT\n");
     for (i = 22; i < 26; i++)
     {
-        tmp[i - 22] = height / pow(255, 26 - i);
-        printf("\tgenerateFileHeader: DEBUG: %d\n", tmp[i - 22]);
-        height = height % (unsigned long)pow(255, 26 - i);
+        tmp[i - 22] = height / pow(255, 25 - i);
+        height = height % (unsigned long)pow(255, 25 - i);
     }
     
     for (i = 22; i < 26; i++)
     {
-        printf("\t\tgenerateFileHeader: header[%d] with tmp[%d]\n", i, 25 - i);
         header[i] = tmp[25 - i];
+        printf("generateFileHeader: placed %d at header %d\n", header[i], i);
     }
     printf("generateFileHeader: Created HEIGHT\n");
     
