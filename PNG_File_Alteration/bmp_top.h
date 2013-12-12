@@ -38,11 +38,11 @@ void sub_pixel(ds_bmp map, unsigned long x, unsigned long y, unsigned char red, 
 
 /*General Drawing Functions*/
 //Makes a simple gradient from left to right. mode is MODE_ADD/_SET/_SUB
-void bmp_gradient(ds_bmp map, unsigned char red_start, unsigned char green_start, unsigned char blue_start, unsigned char red_end, unsigned char green_end, unsigned char blue_end, char mode);
+void bmp_gradient(ds_bmp map, unsigned char red_start, unsigned char green_start, unsigned char blue_start, unsigned char red_end, unsigned char green_end, unsigned char blue_end, unsigned char mode);
 void bmp_draw_line(ds_bmp map, unsigned long start_x, unsigned long start_y, unsigned long end_x, unsigned long end_y, signed char red, signed char green, signed char blue);
-//bmp_draw_ellipse
-//bmp_draw_rectangle
-//bmp_fill
+void bmp_draw_ellipse(ds_bmp map, unsigned long start_x, unsigned long start_y, unsigned long end_x, unsigned long end_y, unsigned char red, unsigned char green, unsigned char blue);
+void bmp_draw_rectangle(ds_bmp map, unsigned long start_x, unsigned long start_y, unsigned long end_x, unsigned long end_y, unsigned char red, unsigned char green, unsigned char blue);
+void bmp_fill(ds_bmp map, unsigned char red, unsigned char green, unsigned char blue);
 
 
 /*Helper Functions*/

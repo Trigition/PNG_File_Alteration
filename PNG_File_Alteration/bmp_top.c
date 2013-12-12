@@ -134,7 +134,7 @@ unsigned char pixel_get_blue(ds_bmp map, unsigned long x, unsigned long y) {
 
 
 
-void bmp_gradient(ds_bmp map, unsigned char red_start, unsigned char green_start, unsigned char blue_start, unsigned char red_end, unsigned char green_end, unsigned char blue_end, char mode) {
+void bmp_gradient(ds_bmp map, unsigned char red_start, unsigned char green_start, unsigned char blue_start, unsigned char red_end, unsigned char green_end, unsigned char blue_end, unsigned char mode) {
 	double dr, dg, db;
 	unsigned long i, j;
 	dr = (double) (red_end - red_start);
@@ -195,9 +195,15 @@ void bmp_draw_line(ds_bmp map, unsigned long start_x, unsigned long start_y, uns
 	printf("Dx: %lf      Dy: %lf\n", dx, dy);
 	for (x = start_x; x <= end_x; x++) {
 		ymax = y+dy;
-		printf("New Row\nymax = %lf\n", ymax);
-		for (/*we want y to continue*/ ; y < ymax; y = min_d(y+1, ymax)) {
-			printf("Starting pixel (%lu, %lu)\n", x, (unsigned long) y);
+		if (x >= map->width || x == -1)
+			continue;
+		//printf("New Row\nymax = %lf\n", ymax);
+		do {
+			if (y == -1 || y >= map->height) {
+				y = min_d(y+1, ymax);
+				continue;
+			}
+			
 			
 			//middle pixel
 			map->pixel_list[x][(unsigned long) y][RED] = red;
@@ -205,25 +211,35 @@ void bmp_draw_line(ds_bmp map, unsigned long start_x, unsigned long start_y, uns
 			map->pixel_list[x][(unsigned long) y][BLUE] = blue;
 			
 			//top pixel
-			map->pixel_list[x][(unsigned long) (y-1)][RED] = red;
-			map->pixel_list[x][(unsigned long) (y-1)][GREEN] = green;
-			map->pixel_list[x][(unsigned long) (y-1)][BLUE] = blue;
+			if (y-1 >= 0) {
+				map->pixel_list[x][(unsigned long) (y-1)][RED] = red;
+				map->pixel_list[x][(unsigned long) (y-1)][GREEN] = green;
+				map->pixel_list[x][(unsigned long) (y-1)][BLUE] = blue;
+			}
 			
 			//bottom pixel
-			map->pixel_list[x][(unsigned long) (y+1)][RED] = red;
-			map->pixel_list[x][(unsigned long) (y+1)][GREEN] = green;
-			map->pixel_list[x][(unsigned long) (y+1)][BLUE] = blue;
+			if (y+1 < map->height) {
+				map->pixel_list[x][(unsigned long) (y+1)][RED] = red;
+				map->pixel_list[x][(unsigned long) (y+1)][GREEN] = green;
+				map->pixel_list[x][(unsigned long) (y+1)][BLUE] = blue;
+			}
 			
 			//left pixel
-			map->pixel_list[x-1][(unsigned long) y][RED] = red;
-			map->pixel_list[x-1][(unsigned long) y][GREEN] = green;
-			map->pixel_list[x-1][(unsigned long) y][BLUE] = blue;
+			if (x-1 >= 0) {
+				map->pixel_list[x-1][(unsigned long) y][RED] = red;
+				map->pixel_list[x-1][(unsigned long) y][GREEN] = green;
+				map->pixel_list[x-1][(unsigned long) y][BLUE] = blue;
+			}
 			
 			//right pixel
-			map->pixel_list[x+1][(unsigned long) y][RED] = red;
-			map->pixel_list[x+1][(unsigned long) y][GREEN] = green;
-			map->pixel_list[x+1][(unsigned long) y][BLUE] = blue;
-		}
+			if (x+1 < map->width) {
+				map->pixel_list[x+1][(unsigned long) y][RED] = red;
+				map->pixel_list[x+1][(unsigned long) y][GREEN] = green;
+				map->pixel_list[x+1][(unsigned long) y][BLUE] = blue;
+			}
+			
+			y = min_d(y+1, ymax);
+		} while (y < ymax);
 	}	
 }
 
@@ -244,6 +260,97 @@ void bmp_write(ds_bmp map) {
 	fclose(result);
 	
 }
+
+void bmp_fill(ds_bmp map, unsigned char red, unsigned char green, unsigned char blue) {
+	unsigned long w, h, i, j;
+	w = map->width;
+	h = map->height;
+	for (i = 0; i < w; i++)
+	for (j = 0; j < h; j++) {
+		map->pixel_list[i][j][RED] = red;
+		map->pixel_list[i][j][GREEN] = green;
+		map->pixel_list[i][j][BLUE] = blue;
+	}
+}
+
+void bmp_draw_rectangle(ds_bmp map, unsigned long start_x, unsigned long start_y, unsigned long end_x, unsigned long end_y, unsigned char red, unsigned char green, unsigned char blue) {
+	unsigned long i, j;
+	
+	if (start_x > end_x) {
+		i = start_x;
+		start_x = end_x;
+		end_x = i;
+	}
+	if (start_y > end_y) {
+		i = start_y;
+		start_y = end_y;
+		end_y = i;
+	}
+	
+	for (i = start_x; i <= end_x && i < map->width; i++)
+	for (j = start_y; j <= end_y && j < map->height; j++) {
+		map->pixel_list[i][j][RED] = red;
+		map->pixel_list[i][j][GREEN] = green;
+		map->pixel_list[i][j][BLUE] = blue;
+	}
+}
+
+void bmp_draw_ellipse(ds_bmp map, unsigned long start_x, unsigned long start_y, unsigned long end_x, unsigned long end_y, unsigned char red, unsigned char green, unsigned char blue) {
+	unsigned long i, w, h, r, cx, cy;
+	signed long ymax, ymin, j;
+	double x, y;
+	
+	if (start_x > end_x) {
+		i = start_x;
+		start_x = end_x;
+		end_x = i;
+	}
+	if (start_y > end_y) {
+		i = start_y;
+		start_y = end_y;
+		end_y = i;
+	}
+	
+	if (end_x >= map->width)
+		end_x = (map->width)-1;
+	if (end_y >= map->height)
+		end_y = (map->height)-1;
+		
+	w = end_x - start_x;
+	h = end_y - start_y;
+	cx = start_x + (w/2); //center x
+	cy = start_y + (h/2); //center y
+	if (w > h) {
+		y = h/w;
+		x = 1.0;
+		r = h/2;
+	}
+	else {
+		x = h/w;
+		y=1.0;
+		r = w/2;
+	}
+	printf("start_x=%lu   end_x=%lu\n", start_x, end_x);
+	//r^2 = *x(x^2) + *y(y^2)
+	for (i = start_x; i <= end_x; i++) {
+		ymax = sqrt((pow(r, 2) - (x)*((i-cx) * (i-cx)))/y);
+		//ymax = (r^2 - a(x^2))b
+		//r^2 = ax^2+by^2
+		ymin = -ymax;
+		printf("r=%lu   ymax=%ld   ymin=%ld\n", r, ymax, ymin);
+		for (j = ymin; j <= ymax; j++) {
+			//j is y position without offset of center
+			map->pixel_list[i][j+cy][RED] = red;
+			map->pixel_list[i][j+cy][GREEN] = green;
+			map->pixel_list[i][j+cy][BLUE] = blue;
+		}
+	}
+	
+	
+}
+
+
+
 
 double min_d(double a, double b) {
 	if (a <= b)
