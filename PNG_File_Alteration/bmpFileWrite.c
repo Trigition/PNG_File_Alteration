@@ -263,22 +263,23 @@ char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned
     unsigned long j;
     unsigned long k;
     unsigned long l;
-        for (j = 0; j < pixelH; j++)
+    for (j = 0; j < pixelH; j++)
         {
             for (k = 0; k < pixelW; k++)
-            {
-                //Writing color R G B
-                for (l = 0; l < 3; l++) {
-                    //printf("\t\tAt index %d\n", i);
-                    header[i] = pixels[k][j][l];
+                {
+                        //Writing color R G B
+                        for (l = 0; l < 3; l++)
+                            {
+                                //printf("\t\tAt index %d\n", i);
+                                header[i] = pixels[k][j][l];
+                                i++;
+                            }
+                }
+            while ((i - 54) % 4 != 0)
+                {
+                    header[i] = i;
                     i++;
                 }
-            }
-            while ((i - 54) % 4 != 0)
-            {
-                header[i] = i;
-                i++;
-            }
         }
     printf("generateFileHeader: Created pixel data\n");
     
