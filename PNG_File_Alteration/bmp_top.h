@@ -15,7 +15,8 @@ ds_bmp create_bmp_ext(char const *filename, unsigned long w, unsigned long h, un
 
 /*Writing to file*/
 //Writes bmp to file. Uses name passed with creation as filename
-void bmp_write(ds_bmp map);
+//supports debug printing TRUE or FALSE
+void bmp_write(ds_bmp map, unsigned char debug_switch);
 
 /*Accessor Functions*/
 unsigned char pixel_get_red(ds_bmp map, unsigned long x, unsigned long y);

@@ -15,17 +15,17 @@ struct ds_bmp_sentinel {
 ds_bmp create_bmp(char const *filename, unsigned long w, unsigned long h) {
 	ds_bmp my_bmp;
 	unsigned long i,j;
-	
+
 	//make our sentinel and reserve (and copy in) our name
 	my_bmp = malloc(sizeof(struct ds_bmp_sentinel));
 	my_bmp->name = malloc(sizeof(char) * (1 + strlen(filename)));
 	strncpy(my_bmp->name, filename, strlen(filename) + 1);
 	*(my_bmp->name + strlen(filename)) = '\0';
-	
+
 	//set up width and height
 	my_bmp->width = w;
 	my_bmp->height = h;
-	
+
 	//create 3d array
 	my_bmp->pixel_list = malloc(sizeof(char **) * w);
 	for (i = 0; i < w; i++) {
@@ -35,27 +35,27 @@ ds_bmp create_bmp(char const *filename, unsigned long w, unsigned long h) {
 			my_bmp->pixel_list[i][j] = malloc(sizeof(unsigned char) * 3);
 			my_bmp->pixel_list[i][j][RED] = 0;
 			my_bmp->pixel_list[i][j][GREEN] = 0;
-			my_bmp->pixel_list[i][j][BLUE] = 0; 
+			my_bmp->pixel_list[i][j][BLUE] = 0;
 		}
 	}
-	
+
 	return my_bmp;
 }
 
 ds_bmp create_bmp_ext(char const *filename, unsigned long w, unsigned long h, unsigned char red, unsigned char green, unsigned char blue) {
 	ds_bmp my_bmp;
 	unsigned long i,j;
-	
+
 	//make our sentinel and reserve (and copy in) our name
 	my_bmp = malloc(sizeof(struct ds_bmp_sentinel));
 	my_bmp->name = malloc(sizeof(char) * (1 + strlen(filename)));
 	strncpy(my_bmp->name, filename, strlen(filename) + 1);
 	*(my_bmp->name + strlen(filename)) = '\0';
-	
+
 	//set up width and height
 	my_bmp->width = w;
 	my_bmp->height = h;
-	
+
 	//create 3d array
 	my_bmp->pixel_list = malloc(sizeof(char **) * w);
 	for (i = 0; i < w; i++) {
@@ -65,10 +65,10 @@ ds_bmp create_bmp_ext(char const *filename, unsigned long w, unsigned long h, un
 			my_bmp->pixel_list[i][j] = malloc(sizeof(unsigned char) * 3);
 			my_bmp->pixel_list[i][j][RED] = red;
 			my_bmp->pixel_list[i][j][GREEN] = green;
-			my_bmp->pixel_list[i][j][BLUE] = blue; 
+			my_bmp->pixel_list[i][j][BLUE] = blue;
 		}
 	}
-	
+
 	return my_bmp;
 }
 
@@ -140,13 +140,19 @@ void bmp_gradient(ds_bmp map, unsigned char red_start, unsigned char green_start
 	dr = (double) (red_end - red_start);
 	dg = (double) (green_end - green_start);
 	db = (double) (blue_end - blue_start);
-	
+
 	dr = dr/(map->width - 1); //dr has how much each pixel should change in red value
 	dg = dg/(map->width - 1);
 	db = db/(map->width - 1);
-	
-	
-	 
+
+	if (red_end != 0 && red_start == 0 && mode != MODE_ADD)
+        printf("Warning! Setting the starting color to 0 and using either sub or set modes causes a tearing error!\n");
+	if (green_end != 0 && green_start == 0 && mode != MODE_ADD)
+        printf("Warning! Setting the starting color to 0 and using either sub or set modes causes a tearing error!\n");
+	if (blue_end != 0 && blue_start == 0 && mode != MODE_ADD)
+        printf("Warning! Setting the starting color to 0 and using either sub or set modes causes a tearing error!\n");
+
+
 	for (i = 0; i < map->width; i++)
 	for (j = 0; j < map->height; j++) {
 		if (mode == MODE_ADD) {
@@ -159,17 +165,17 @@ void bmp_gradient(ds_bmp map, unsigned char red_start, unsigned char green_start
 			map->pixel_list[i][j][GREEN] -= green_start + (i*dg);
 			map->pixel_list[i][j][BLUE] -= blue_start + (i*db);
 		}
-		else { //assume set is mode is unrecognized
-			map->pixel_list[i][j][RED] = red_start + (i*dr);
-			map->pixel_list[i][j][GREEN] = green_start + (i*dg);
-			map->pixel_list[i][j][BLUE] = blue_start + (i*db);
+		else { //assume set or mode is unrecognized
+			(map->pixel_list[i][j][RED]) = (unsigned char) (red_start + (i*dr));
+			(map->pixel_list[i][j][GREEN]) = (unsigned char) (green_start + (i*dg));
+			(map->pixel_list[i][j][BLUE]) = (unsigned char) (blue_start + (i*db));
 		}
 	}
 }
 
 void bmp_draw_line(ds_bmp map, unsigned long start_x, unsigned long start_y, unsigned long end_x, unsigned long end_y, signed char red, signed char green, signed char blue) {
 	/*
-	gets slope of line. starts at start_x/y and goes to end_x/y. width of 3	
+	gets slope of line. starts at start_x/y and goes to end_x/y. width of 3
 	*/
 	double dx, dy, y, ymax; //y has to be double because decimals :(
 	unsigned long x;
@@ -183,14 +189,14 @@ void bmp_draw_line(ds_bmp map, unsigned long start_x, unsigned long start_y, uns
 		end_y = start_y;
 		start_y = (unsigned long) y;
 	}
-	
+
 	dx = end_x-start_x;
 	dy = end_y-start_y;
-	
+
 	//we need one variable to be 0. we choose y
 	dy = dy/max_ul(dx, 1);
 	dx = 1; //dx/dx
-	
+
 	y = start_y;
 	printf("Dx: %lf      Dy: %lf\n", dx, dy);
 	for (x = start_x; x <= end_x; x++) {
@@ -203,44 +209,44 @@ void bmp_draw_line(ds_bmp map, unsigned long start_x, unsigned long start_y, uns
 				y = min_d(y+1, ymax);
 				continue;
 			}
-			
-			
+
+
 			//middle pixel
 			map->pixel_list[x][(unsigned long) y][RED] = red;
 			map->pixel_list[x][(unsigned long) y][GREEN] = green;
 			map->pixel_list[x][(unsigned long) y][BLUE] = blue;
-			
+
 			//top pixel
 			if (y-1 >= 0) {
 				map->pixel_list[x][(unsigned long) (y-1)][RED] = red;
 				map->pixel_list[x][(unsigned long) (y-1)][GREEN] = green;
 				map->pixel_list[x][(unsigned long) (y-1)][BLUE] = blue;
 			}
-			
+
 			//bottom pixel
 			if (y+1 < map->height) {
 				map->pixel_list[x][(unsigned long) (y+1)][RED] = red;
 				map->pixel_list[x][(unsigned long) (y+1)][GREEN] = green;
 				map->pixel_list[x][(unsigned long) (y+1)][BLUE] = blue;
 			}
-			
+
 			//left pixel
 			if (x-1 >= 0) {
 				map->pixel_list[x-1][(unsigned long) y][RED] = red;
 				map->pixel_list[x-1][(unsigned long) y][GREEN] = green;
 				map->pixel_list[x-1][(unsigned long) y][BLUE] = blue;
 			}
-			
+
 			//right pixel
 			if (x+1 < map->width) {
 				map->pixel_list[x+1][(unsigned long) y][RED] = red;
 				map->pixel_list[x+1][(unsigned long) y][GREEN] = green;
 				map->pixel_list[x+1][(unsigned long) y][BLUE] = blue;
 			}
-			
+
 			y = min_d(y+1, ymax);
 		} while (y < ymax);
-	}	
+	}
 }
 
 void bmp_set_name(ds_bmp map, char const *filename) {
@@ -249,16 +255,16 @@ void bmp_set_name(ds_bmp map, char const *filename) {
 	strcpy(map->name, filename);
 }
 
-void bmp_write(ds_bmp map) {
+void bmp_write(ds_bmp map, unsigned char debug_switch) {
 	FILE *result;
-	
-	result = bmpBottom(map);
-	
+
+	result = bmpBottom(map, debug_switch);
+
 	if (result==NULL)
 		printf("There has been an error writing to the file!\nPlease make certain the file doesn't already exist, or\nyou have permission to overwrite it!\n");
-	
+
 	fclose(result);
-	
+
 }
 
 void bmp_fill(ds_bmp map, unsigned char red, unsigned char green, unsigned char blue) {
@@ -275,7 +281,7 @@ void bmp_fill(ds_bmp map, unsigned char red, unsigned char green, unsigned char 
 
 void bmp_draw_rectangle(ds_bmp map, unsigned long start_x, unsigned long start_y, unsigned long end_x, unsigned long end_y, unsigned char red, unsigned char green, unsigned char blue) {
 	unsigned long i, j;
-	
+
 	if (start_x > end_x) {
 		i = start_x;
 		start_x = end_x;
@@ -286,7 +292,7 @@ void bmp_draw_rectangle(ds_bmp map, unsigned long start_x, unsigned long start_y
 		start_y = end_y;
 		end_y = i;
 	}
-	
+
 	for (i = start_x; i <= end_x && i < map->width; i++)
 	for (j = start_y; j <= end_y && j < map->height; j++) {
 		map->pixel_list[i][j][RED] = red;
@@ -299,7 +305,7 @@ void bmp_draw_ellipse(ds_bmp map, unsigned long start_x, unsigned long start_y, 
 	unsigned long i, w, h, r, cx, cy;
 	signed long ymax, ymin, j;
 	double x, y;
-	
+
 	if (start_x > end_x) {
 		i = start_x;
 		start_x = end_x;
@@ -310,12 +316,12 @@ void bmp_draw_ellipse(ds_bmp map, unsigned long start_x, unsigned long start_y, 
 		start_y = end_y;
 		end_y = i;
 	}
-	
+
 	if (end_x >= map->width)
 		end_x = (map->width)-1;
 	if (end_y >= map->height)
 		end_y = (map->height)-1;
-		
+
 	w = end_x - start_x;
 	h = end_y - start_y;
 	cx = start_x + (w/2); //center x
@@ -345,8 +351,8 @@ void bmp_draw_ellipse(ds_bmp map, unsigned long start_x, unsigned long start_y, 
 			map->pixel_list[i][j+cy][BLUE] = blue;
 		}
 	}
-	
-	
+
+
 }
 
 

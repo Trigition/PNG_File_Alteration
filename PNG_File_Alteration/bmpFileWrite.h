@@ -12,10 +12,10 @@
 
 #include "bmp_header.h"
 
-FILE *bmpBottom(ds_bmp sentinel); //Function dumps bmp char array to file
+FILE *bmpBottom(ds_bmp sentinel, unsigned char debug_switch); //Function dumps bmp char array to file
 
 int checkHeaderValidity(ds_bmp sentinel);  //Validates header COMMENTED OUT. KEEPING FUNCTION IN CASE TO READ IN FILE
 char *defaultFileNameWrite();  //If no filename is given, generate one
-char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned long width, char ***pixels);
+char *generateFileHeader(unsigned long arraySize, unsigned long height, unsigned long width, char ***pixels, unsigned char debug_switch);
 
 #endif
