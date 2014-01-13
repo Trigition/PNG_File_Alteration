@@ -9,8 +9,12 @@
  *Deals with the storing and managing of the bmp;
  **/
 
+ds_bmp create_bmp(char const *filename, unsigned long w, unsigned long h);
 //Creates bmp with initial rgb values
 ds_bmp create_bmp_ext(char const *filename, unsigned long w, unsigned long h, unsigned char red, unsigned char green, unsigned char blue);
+
+//Creates a bmp from raw data. NOT A BMP OPEN FUNCTION
+ds_bmp create_from_pixel_data(char const *filename, char const *data_filename);
 
 
 /*Writing to file*/

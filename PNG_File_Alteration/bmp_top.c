@@ -72,6 +72,59 @@ ds_bmp create_bmp_ext(char const *filename, unsigned long w, unsigned long h, un
 	return my_bmp;
 }
 
+ds_bmp create_from_pixel_data(char const *filename, char const *data_filename) {
+	int file_size;
+	unsigned long i, j;
+	ds_bmp my_bmp;
+	FILE *f_in;
+	
+	
+	//make our sentinel and reserve (and copy in) our name
+	my_bmp = malloc(sizeof(struct ds_bmp_sentinel));
+	my_bmp->name = malloc(sizeof(char) * (1 + strlen(filename)));
+	strncpy(my_bmp->name, filename, strlen(filename) + 1);
+	*(my_bmp->name + strlen(filename)) = '\0';
+
+	//open up the file and get file_size
+	f_in = fopen(data_filename, "r");
+	
+	fseek(f_in, 0L, SEEK_END);
+	file_size = ftell(f_in);
+	
+	fseek(f_in, 0L, SEEK_SET);
+	
+	if (file_size <= 0) {
+		fprintf(stderr, "Error in reading in bytes:\nFile size is 0 or negative!\n");
+		printf("Invalid file size!\n");
+		exit(67);
+	}
+	
+	file_size /= 3;
+	file_size *= 3; //integer division and chopping of modulationsssss
+	
+	
+	//configure width and height on the bitmap
+	my_bmp->width = floor(sqrt(file_size / 3));
+	my_bmp->height = ceil((file_size / 3) / my_bmp->width);
+	//create the array
+	my_bmp->pixel_list = malloc(sizeof(char **) * my_bmp->width);
+	for (i = 0; i < my_bmp->width; i++) {
+		my_bmp->pixel_list[i] = malloc(sizeof(char *) * my_bmp->height);
+		for (j = 0; j < my_bmp->height; j++)  {
+			my_bmp->pixel_list[i][j] = malloc(sizeof(char) * 3);
+			
+			my_bmp->pixel_list[i][j][0] = (char) fgetc(f_in);
+			my_bmp->pixel_list[i][j][1] = (char) fgetc(f_in);
+			my_bmp->pixel_list[i][j][2] = (char) fgetc(f_in);
+		
+		}
+	}
+	
+	
+	fclose(f_in);
+	return my_bmp;
+}
+
 void delete_bmp(ds_bmp my_bmp) {
 	unsigned long i, j;
 	for (i = 0; i < my_bmp->width; i++) {
